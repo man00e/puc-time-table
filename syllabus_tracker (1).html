@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2nd PUC Midterm Syllabus 2024-2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-8">2nd PUC Midterm Syllabus 2024-2025</h1>
+        <div class="bg-white shadow-md rounded-lg p-6" id="syllabus-container">
+            <!-- Syllabus content will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        const subjects = [
+            {
+                name: "Computer Science",
+                chapters: [
+                    {
+                        name: "Chapter 1: Typical Configuration of a Computer System",
+                        topics: []
+                    },
+                    {
+                        name: "Chapter 4: Data Structure - Upto Queues",
+                        topics: []
+                    },
+                    {
+                        name: "Chapter 6: Basic Concepts of OOP",
+                        topics: []
+                    },
+                    {
+                        name: "Chapter 7: Classes and Objects",
+                        topics: []
+                    },
+                    {
+                        name: "Chapter 8: Function Overloading and Member Functions",
+                        topics: []
+                    },
+                    {
+                        name: "Chapter 9: Constructor and Destructor",
+                        topics: [
+                            "Definition of constructor",
+                            "Rules for creating constructors",
+                            "Syntax and example of defining a constructor inside the class",
+                            "Types of constructors: Default and parameterized"
+                        ]
+                    },
+                    {
+                        name: "Chapter 10: Inheritance",
+                        topics: []
+                    },
+                    {
+                        name: "Chapter 13: Database Concepts",
+                        topics: []
+                    },
+                    {
+                        name: "Chapter 14: SQL",
+                        topics: [
+                            "Introduction",
+                            "Characteristics of SQL",
+                            "Datatypes in SQL",
+                            "SQL operators: Arithmetic, relational, logical",
+                            "Types of SQL commands (DDL, DML, DQL, TCL)",
+                            "ORDER BY clause",
+                            "GROUP BY clause"
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "Mathematics",
+                chapters: [
+                    {
+                        name: "Relations and Functions",
+                        topics: []
+                    },
+                    {
+                        name: "Inverse Trigonometric Functions",
+                        topics: []
+                    },
+                    {
+                        name: "Matrices",
+                        topics: []
+                    },
+                    {
+                        name: "Determinants",
+                        topics: []
+                    },
+                    {
+                        name: "Continuity and Differentiability",
+                        topics: []
+                    },
+                    {
+                        name: "Applications of Derivatives",
+                        topics: []
+                    },
+                    {
+                        name: "Vectors",
+                        topics: []
+                    },
+                    {
+                        name: "Linear Programming",
+                        topics: []
+                    }
+                ]
+            },
+            {
+                name: "Chemistry",
+                chapters: [
+                    {
+                        name: "Solutions",
+                        topics: []
+                    },
+                    {
+                        name: "Chemical Kinetics",
+                        topics: []
+                    },
+                    {
+                        name: "The d & f Block Elements",
+                        topics: []
+                    },
+                    {
+                        name: "Coordination Compounds",
+                        topics: []
+                    },
+                    {
+                        name: "Haloalkanes and Haloarenes",
+                        topics: []
+                    },
+                    {
+                        name: "Alcohols, Phenols & Ethers",
+                        topics: []
+                    }
+                ]
+            },
+            {
+                name: "English",
+                chapters: [
+                    {
+                        name: "Literature",
+                        topics: [
+                            "Romeo and Juliet",
+                            "Too Dear",
+                            "On Children",
+                            "Everything I Need to Know...",
+                            "A Sunny Morning",
+                            "When You Are Old",
+                            "The Gardener",
+                            "To the Foot from Its Child",
+                            "Heaven, If You Are Not On Earth"
+                        ]
+                    },
+                    {
+                        name: "Grammar",
+                        topics: [
+                            "Active and Passive Voice",
+                            "Reported Speech",
+                            "Idioms and Phrases",
+                            "Linkers",
+                            "Note-Making",
+                            "Job Application",
+                            "Pronouns"
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        function createToggleButton(text, controlsId, expanded = false, hasTopics = true) {
+            const button = document.createElement('button');
+            button.className = 'flex items-center justify-between w-full text-left font-bold p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500';
+            button.setAttribute('aria-expanded', expanded);
+            if (hasTopics) {
+                button.setAttribute('aria-controls', controlsId);
+            }
+            button.innerHTML = `
+                ${text}
+                ${hasTopics ? `<i data-lucide="${expanded ? 'chevron-up' : 'chevron-down'}" class="h-5 w-5 text-gray-500"></i>` : ''}
+            `;
+            return button;
+        }
+
+        function createSubjectSection(subject) {
+            const section = document.createElement('div');
+            section.className = 'mb-6';
+
+            const subjectButton = createToggleButton(subject.name, `chapters-${subject.name.replace(/\s+/g, '-').toLowerCase()}`, true);
+            subjectButton.classList.add('text-lg', 'bg-gray-100');
+            section.appendChild(subjectButton);
+
+            const chaptersContainer = document.createElement('div');
+            chaptersContainer.id = `chapters-${subject.name.replace(/\s+/g, '-').toLowerCase()}`;
+            chaptersContainer.className = 'mt-2 space-y-2';
+
+            subject.chapters.forEach(chapter => {
+                const chapterDiv = document.createElement('div');
+                chapterDiv.className = 'ml-4';
+
+                const hasTopics = chapter.topics.length > 0;
+                const chapterButton = createToggleButton(
+                    chapter.name,
+                    `topics-${chapter.name.replace(/\s+/g, '-').toLowerCase()}`,
+                    false,
+                    hasTopics
+                );
+                chapterButton.classList.add('text-md', 'bg-gray-50');
+                chapterDiv.appendChild(chapterButton);
+
+                if (hasTopics) {
+                    const topicsList = document.createElement('ul');
+                    topicsList.id = `topics-${chapter.name.replace(/\s+/g, '-').toLowerCase()}`;
+                    topicsList.className = 'mt-2 ml-4 space-y-2 hidden';
+                    chapter.topics.forEach(topic => {
+                        const topicItem = document.createElement('li');
+                        topicItem.className = 'text-gray-700';
+                        topicItem.textContent = topic;
+                        topicsList.appendChild(topicItem);
+                    });
+                    chapterDiv.appendChild(topicsList);
+                }
+
+                chaptersContainer.appendChild(chapterDiv);
+            });
+
+            section.appendChild(chaptersContainer);
+
+            return section;
+        }
+
+        function toggleContent(button, contentId) {
+            const content = document.getElementById(contentId);
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            button.setAttribute('aria-expanded', !isExpanded);
+            content.classList.toggle('hidden');
+            const icon = button.querySelector('i');
+            if (icon) {
+                icon.setAttribute('data-lucide', isExpanded ? 'chevron-down' : 'chevron-up');
+                lucide.createIcons();
+            }
+        }
+
+        function renderSyllabus() {
+            const container = document.getElementById('syllabus-container');
+            subjects.forEach(subject => {
+                const subjectSection = createSubjectSection(subject);
+                container.appendChild(subjectSection);
+
+                const subjectButton = subjectSection.querySelector('button');
+                const chaptersContainer = subjectSection.querySelector(`#chapters-${subject.name.replace(/\s+/g, '-').toLowerCase()}`);
+
+                subjectButton.addEventListener('click', () => toggleContent(subjectButton, chaptersContainer.id));
+
+                chaptersContainer.querySelectorAll('button[aria-controls]').forEach(chapterButton => {
+                    const topicsListId = chapterButton.getAttribute('aria-controls');
+                    chapterButton.addEventListener('click', () => toggleContent(chapterButton, topicsListId));
+                });
+            });
+            lucide.createIcons();
+        }
+
+        renderSyllabus();
+    </script>
+</body>
+</html>
